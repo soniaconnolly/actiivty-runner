@@ -13,6 +13,7 @@ GEM
       reline (>= 0.4.2)
     json (2.7.2)
     json_logger (0.1.0)
+    logger (1.6.1)
     psych (5.1.2)
       stringio
     rdoc (6.7.0)
@@ -44,6 +45,7 @@ DEPENDENCIES
   debug
   json
   json_logger
+  logger
   rspec
   sys-proctable
 

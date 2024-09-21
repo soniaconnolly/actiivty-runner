@@ -15,8 +15,8 @@ RSpec.describe ActivityFactory do
   describe '#create' do
     context 'action is run_process' do
       let(:action) { 'run_process'}
-      it 'creates a ProcessActivity object' do
-        expect(subject.create(activity_info, logger).class).to eq(ProcessActivity)
+      it 'creates an Activity object' do
+        expect(subject.create(activity_info, logger).class).to eq(Activity)
       end
     end
 

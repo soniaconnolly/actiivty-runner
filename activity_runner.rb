@@ -1,5 +1,5 @@
 require 'json'
-require 'logger'
+require 'json_logger'
 
 require_relative './activity_factory'
 
@@ -14,13 +14,12 @@ class ActivityRunner
     factory: ActivityFactory.new
     )
     @activity_file = activity_file
-    @logfile = logfile
     @factory = factory
+
+    @logger = JsonLogger.factory(device: logfile, level: Logger::INFO)
   end
 
   def run
-    initialize_json_log
-
     load_activities.each do |activity|
       activity.run
     end
@@ -28,29 +27,14 @@ class ActivityRunner
 
   private
 
-  # Log in json format
-  def initialize_json_log
-    @logger ||= Logger.new(@logfile)
-    @logger.level = Logger::DEBUG
-    @logger.formatter = proc do |severity, datetime, progname, msg|
-      formatted_date = datetime.strftime('%Y-%m-%dT%H:%M:%S.%6N')
-      {
-        timestamp: formatted_date,
-        level: severity.ljust(5),
-        pid: Process.pid,
-        msg: msg
-      }.to_json + "\n"
-    end
-  end
-
   def load_activities
     begin
-      file = File.read(@activity_file)
-      activities_info = JSON.parse(file)
+      activities_json = File.read(@activity_file)
+      activities_info = JSON.parse(activities_json)
 
       # Create an Activity of the appropriate type for each activity in the file
       activities_info.map do |activity_info|
-        @factory.create(activity_info)
+        @factory.create(activity_info, @logger)
       end
     rescue IOError, SystemCallError => e
       raise ArgumentError.new("Invalid JSON file, error: #{e.message}")

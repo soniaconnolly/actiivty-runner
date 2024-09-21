@@ -1,7 +1,7 @@
 require_relative './spec_helper'
 
 RSpec.describe ProcessActivity do
-  let(:subject) { ProcessActivity.new(activity_info) }
+  let(:subject) { ProcessActivity.new(activity_info, logger) }
 
   let(:activity_info) do
     {
@@ -13,6 +13,7 @@ RSpec.describe ProcessActivity do
   let(:path) { 'echo' }
   let(:args) { 'something to say' }
   let(:pid) { 100 }
+  let(:logger) { Logger.new('/tmp/test.log')}
 
   describe "#run" do
     it 'spawns a process with the given arguments' do

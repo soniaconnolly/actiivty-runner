@@ -5,12 +5,14 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     diff-lcs (1.5.1)
+    ffi (1.17.0)
+    ffi (1.17.0-arm64-darwin)
     io-console (0.7.2)
     irb (1.14.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     json (2.7.2)
-    logger (1.6.1)
+    json_logger (0.1.0)
     psych (5.1.2)
       stringio
     rdoc (6.7.0)
@@ -31,6 +33,8 @@ GEM
       rspec-support (~> 3.13.0)
     rspec-support (3.13.1)
     stringio (3.1.1)
+    sys-proctable (1.3.0)
+      ffi (~> 1.1)
 
 PLATFORMS
   arm64-darwin-22
@@ -39,8 +43,9 @@ PLATFORMS
 DEPENDENCIES
   debug
   json
-  logger
+  json_logger
   rspec
+  sys-proctable
 
 RUBY VERSION
    ruby 3.3.5p100

@@ -1,15 +1,18 @@
 class Activity
+  attr_reader :attributes
 
-  attr_reader :timestamp, :process_id, :process_owner, :location
+  def initialize(attributes, logger)
+    @attributes = attributes
+    @logger = logger
 
-  def initialize(activity_info)
-    @action = activity_info['action']
-    @path = activity_info['path']
+    attributes[:process_id] = Process.pid
+    attributes[:process_owner] = Etc.getpwuid(Process.uid).name
   end
 
   def run
   end
 
-  def to_log
+  def log_activity(**extra)
+    @logger.info(attributes.merge(extra))
   end
 end

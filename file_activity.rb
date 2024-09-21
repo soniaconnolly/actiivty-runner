@@ -1,16 +1,11 @@
 require_relative './activity'
 
 class FileActivity < Activity
-  def initialize(activity_info)
-    super
-
-    @data = activity_info['data']
-    @type = activity_info['type']
-  end
-
   def run
-  end
+    begin
 
-  def to_log
+    rescue Exception => e
+      log(error: e.message)
+    end
   end
 end

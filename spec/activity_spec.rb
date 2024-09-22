@@ -25,10 +25,10 @@ RSpec.describe Activity do
 
   describe "#run" do
     it 'spawns a process with the given arguments' do
-        expect(Process).to receive(:spawn).
-          with("#{path} #{args}", out: '/dev/null', err: '/dev/null').and_return(pid)
+      expect(Process).to receive(:spawn).
+        with("#{path} #{args}", out: '/dev/null', err: '/dev/null').and_return(pid)
 
-        subject.run
+      subject.run
     end
 
     it 'logs the required attributes in json format' do

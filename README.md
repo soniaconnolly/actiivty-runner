@@ -73,4 +73,4 @@ Currently, no API keys are in use. If they are needed they should be added in a 
 ### Gems added
 - [json_logger](https://github.com/tedconf/json_logger) logging in json format
 - [sys-proctable](https://github.com/djberg96/sys-proctable) cross-platform information about running processes
-
+- [get_process_start_time](https://github.com/sonots/get_process_start_time) returns process start time (Linux only). I ended up using `ps` instead because it just works on both Mac and Linux, but it's slow. In production, the Linux side should use this gem, and the Mac side should figure out the start time from `ProcTable.ps(pid: process_id).start_tvsec` and `.start_tvusec`.

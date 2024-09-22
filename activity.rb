@@ -26,9 +26,11 @@ class Activity
       # stdout and stderr could be captured and logged in the same json format used elsewhere.
       process_id = Process.spawn(command, out: '/dev/null', err: '/dev/null')
 
-      attributes[:process_start_time] = get_process_start_time(process_id)
+      # The process has to run long enough to get the first three attributes.
+      # Call get_process_start_time last because it's slow.
       attributes[:process_owner] = Etc.getpwuid(Process.uid).name
       attributes[:process_name] = ProcTable.ps(pid: process_id).name
+      attributes[:process_start_time] = get_process_start_time(process_id)
       attributes[:command] = command
       attributes[:process_id] = process_id
       log_activity
@@ -46,18 +48,12 @@ class Activity
 
   private
 
+  # Get the process start time in UTC on both Mac and Linux by calling ps. This is slow.
+  # In a production system, use ProcTable and do the calculations to get the start time
+  # from the provided values and the machine uptime.
+  # For Linux, there's a gem get_process_start_time.
   # ref: https://stackoverflow.com/questions/13017414/ruby-method-for-getting-a-processs-start-time
-  # TODO: Convert to a timestamp
   def get_process_start_time(process_id)
-    process_info = ProcTable.ps(pid: process_id)
-    # :start_tvsec, :start_tvusec for Darwin
-    # :starttime for Linux
-    if process_info.respond_to?(:starttime)
-      process_info.starttime
-    elsif process_info.respond_to?(:start_tvsec)
-      "#{process_info.start_tvsec} #{process_info.start_tvusec}"
-    else
-      'see log timestamp'
-    end
+    `TZ=UTC LC_TIME=C ps -o lstart= -p #{process_id}`.strip
   end
 end

@@ -1,0 +1,32 @@
+[
+  {
+    "action" : "create_file",
+    "path" : "/tmp/new_file",
+    "type" : "text"
+  },
+  {
+    "action" : "modify_file",
+    "path" : "/tmp/new_file",
+    "data" : "This text will be appended to the file."
+  },
+  {
+    "action" : "run_process",
+    "path" : "echo",
+    "args" : "something to say"
+  },
+  {
+    "action" : "delete_file",
+    "path" : "/tmp/new_file"
+  },
+  {
+    "action" : "network_request",
+    "path" : "https://postman-echo.com/post",
+    "protocol" : "POST",
+    "data" : "msg='Send this data to the server.'"
+  },
+  {
+    "action" : "network_request",
+    "path" : "https://postman-echo.com/get",
+    "data" : "msg='Send this data to the server.'"
+  }
+]

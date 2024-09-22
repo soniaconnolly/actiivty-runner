@@ -1,7 +1,7 @@
 require_relative './spec_helper'
 
 RSpec.describe ActivityRunner do
-  let(:subject) { ActivityRunner.new('./activities.json', factory: factory) }
+  let(:subject) { ActivityRunner.new('./spec/fixtures/test_activities.json', factory: factory) }
 
   let(:factory) { ActivityFactory.new }
 

@@ -36,8 +36,16 @@ class ActivityRunner
       activities_info.map do |activity_info|
         @factory.create(activity_info, @logger)
       end
-    rescue IOError, SystemCallError => e
+    rescue IOError, SystemCallError, JSON::ParserError => e
+      @logger.error(error: "Invalid JSON file, error: #{e.message}")
       raise ArgumentError.new("Invalid JSON file, error: #{e.message}")
     end
+  end
+end
+
+# Remove initial comment on log files by monkeypatching add_log_header
+# per https://stackoverflow.com/questions/4096336/can-i-disable-the-log-header-for-ruby-logger
+class Logger::LogDevice
+  def add_log_header(file)
   end
 end

@@ -6,11 +6,12 @@ RSpec.describe ActivityFactory do
   let(:activity_info) do
     {
       'action' => action,
-      'path' => '/tmp/new_file',
+      'path' => path,
       'type' => 'text'
     }
   end
   let(:logger) { Logger.new('/tmp/test.log')}
+  let(:path) { '/tmp/new_file' }
 
   describe '#create' do
     context 'action is run_process' do
@@ -50,6 +51,15 @@ RSpec.describe ActivityFactory do
 
     context 'action is invalid' do
       let(:action) { 'no_such_action'}
+      it 'creates a NullActivity object' do
+        expect(subject.create(activity_info, logger).class).to eq(NullActivity)
+      end
+    end
+
+    context 'path is missing' do
+      let(:action) { 'delete_file' }
+      let(:path) { nil }
+
       it 'creates a NullActivity object' do
         expect(subject.create(activity_info, logger).class).to eq(NullActivity)
       end

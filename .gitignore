@@ -12,12 +12,16 @@
 !/.env*.erb
 
 # Ignore all logfiles and tempfiles.
+*.log
 /log/*
 /tmp/*
 !/log/.keep
 !/tmp/.keep
 
 /activity_runner_log.json
+
+# Ignore vendor/cache
+/vendor/cache/*
 
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*

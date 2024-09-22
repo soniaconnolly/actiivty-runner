@@ -21,6 +21,12 @@
   {
     "action" : "network_request",
     "path" : "https://postman-echo.com/post",
-    "data" : "ABCDE"
+    "protocol" : "POST",
+    "data" : "msg='Send this data to the server.'"
+  },
+  {
+    "action" : "network_request",
+    "path" : "https://postman-echo.com/get",
+    "data" : "msg='Send this data to the server.'"
   }
 ]

@@ -39,6 +39,7 @@ RSpec.describe Activity do
       # Could freeze time here but that would be testing JsonLogger's timestamp functionality
       expect(result['time']).to be_a(String)
       expect(result['level']).to eq('INFO')
+      expect(result['action']).to eq('run_process')
       expect(result['process_start_time']).to be_a(String)
       expect(result['process_owner']).to be_a(String)
       expect(result['process_name']).to be_a(String)

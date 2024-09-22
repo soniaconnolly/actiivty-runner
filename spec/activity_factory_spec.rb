@@ -22,22 +22,22 @@ RSpec.describe ActivityFactory do
 
     context 'action is create_file' do
       let(:action) { 'create_file'}
-      it 'creates a FileActivity object' do
-        expect(subject.create(activity_info, logger).class).to eq(FileActivity)
+      it 'creates a CreateFileActivity object' do
+        expect(subject.create(activity_info, logger).class).to eq(CreateFileActivity)
       end
     end
 
     context 'action is modify_file' do
       let(:action) { 'modify_file'}
-      it 'creates a FileActivity object' do
-        expect(subject.create(activity_info, logger).class).to eq(FileActivity)
+      it 'creates a ModifyFileActivity object' do
+        expect(subject.create(activity_info, logger).class).to eq(ModifyFileActivity)
       end
     end
 
     context 'action is delete_file' do
       let(:action) { 'delete_file'}
-      it 'creates a FileActivity object' do
-        expect(subject.create(activity_info, logger).class).to eq(FileActivity)
+      it 'creates a DeleteFileActivity object' do
+        expect(subject.create(activity_info, logger).class).to eq(DeleteFileActivity)
       end
     end
 

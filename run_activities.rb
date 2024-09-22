@@ -1,12 +1,12 @@
 #! ruby
 
-require 'activity_runner'
+require_relative './activity_runner'
 
 activities_file = ARGV[0]
 
 if activities_file.nil?
-  puts 'Usage: run_activities.rb activities_file.json'
+  puts 'Usage: run_activities.rb activities.json'
   exit
 end
 
-ActivityRunner.new(activity_file).run
+ActivityRunner.new(activities_file).run

@@ -27,7 +27,7 @@ RSpec.describe NetworkActivity do
   let(:buffer) { StringIO.new }
 
   before do
-    allow(File).to receive(:open).with(logfile, 9).and_return(buffer)
+    allow(File).to receive(:open).with(logfile, anything).and_return(buffer)
   end
 
   describe "#run" do

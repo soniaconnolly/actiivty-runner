@@ -6,8 +6,10 @@ gem 'json'
 gem 'json_logger'
 gem 'logger'
 gem 'sys-proctable'
+gem 'faraday'
 
 group :development, :test do
   gem 'rspec'
+  gem 'vcr'
   gem 'debug'
 end

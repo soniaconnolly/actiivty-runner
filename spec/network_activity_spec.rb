@@ -32,11 +32,10 @@ RSpec.describe NetworkActivity do
 
   describe "#run" do
     context 'GET (default protocol)' do
-      it 'spawns a process with the given arguments' do
-        expect(Process).to receive(:spawn).
-          with(command, out: '/dev/null', err: '/dev/null').and_return(pid)
-
-        subject.run
+      it 'makes a network request' do
+        VCR.use_cassette('network_request_get') do
+          subject.run
+        end
       end
     end
 
@@ -45,16 +44,17 @@ RSpec.describe NetworkActivity do
       let(:path) { 'https://postman-echo.com:8080/post' }
       let(:command) { "curl --data-urlencode '#{data}' https://postman-echo.com:8080/post" }
 
-      it 'spawns a process with the given arguments' do
-        expect(Process).to receive(:spawn).
-          with(command, out: '/dev/null', err: '/dev/null').and_return(pid)
-
-        subject.run
+      it 'makes a network request' do
+        VCR.use_cassette('network_request_post') do
+          subject.run
+        end
       end
     end
 
     it 'logs the required attributes in json format' do
-      subject.run
+      VCR.use_cassette('network_request_get') do
+        subject.run
+      end
 
       result = JSON.parse(buffer.string)
 
@@ -69,6 +69,7 @@ RSpec.describe NetworkActivity do
       expect(result['process_name']).to be_a(String)
       expect(result['command']).to eq(command)
       expect(result['process_id']).to be_a(Numeric)
+      expect(result['content_length']).to be_a(Numeric)
     end
   end
 end

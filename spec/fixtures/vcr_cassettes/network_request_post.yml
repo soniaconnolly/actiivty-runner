@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://postman-echo.com/post
+    body:
+      encoding: UTF-8
+      string: Send this data to the server.
+    headers:
+      User-Agent:
+      - Faraday v1.10.3
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Mon, 23 Sep 2024 02:26:32 GMT
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '663'
+      connection:
+      - keep-alive
+      server:
+      - nginx/1.25.3
+      etag:
+      - W/"297-KXinKWiHt9TTrA4o3fW5cNcxtDE"
+      set-cookie:
+      - sails.sid=s%3A3rB4e66ZJLtWO9umzU_0K2BdWB83l_P9.bto3W5IFub%2FhXSW4htSbD3D3lx1XwYfI0ce4m0uc5FM;
+        Path=/; HttpOnly
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "args": {},
+          "data": "",
+          "files": {},
+          "form": {
+            "Send this data to the server.": ""
+          },
+          "headers": {
+            "host": "postman-echo.com",
+            "x-request-start": "t=1727058392.655",
+            "connection": "close",
+            "content-length": "29",
+            "x-forwarded-proto": "https",
+            "x-forwarded-port": "443",
+            "x-amzn-trace-id": "Root=1-66f0d1d8-322abcf30a986ef76bc7ae3a",
+            "user-agent": "Faraday v1.10.3",
+            "content-type": "application/x-www-form-urlencoded",
+            "accept-encoding": "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+            "accept": "*/*"
+          },
+          "json": {
+            "Send this data to the server.": ""
+          },
+          "url": "https://postman-echo.com/post"
+        }
+  recorded_at: Mon, 23 Sep 2024 02:26:32 GMT
+recorded_with: VCR 6.3.1

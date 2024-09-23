@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://postman-echo.com/get?Send+this+data+to+the+server.
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Mon, 23 Sep 2024 02:18:24 GMT
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '507'
+      connection:
+      - keep-alive
+      server:
+      - nginx/1.25.3
+      etag:
+      - W/"1fb-aZ0Q6pb5UBCcizc9jU5/GHmB3Cw"
+      set-cookie:
+      - sails.sid=s%3A7au5Hb-9RdC2P90Es574BU7TE52QIKKt.E6aTPuJArYfCMATNVirienA8bT1tNAiebNgVuMDGrUY;
+        Path=/; HttpOnly
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "args": {
+            "Send this data to the server.": ""
+          },
+          "headers": {
+            "host": "postman-echo.com",
+            "x-request-start": "t=1727057904.698",
+            "connection": "close",
+            "x-forwarded-proto": "https",
+            "x-forwarded-port": "443",
+            "x-amzn-trace-id": "Root=1-66f0cff0-6c811fca4f87e82a316be81b",
+            "user-agent": "Faraday v1.10.3",
+            "accept-encoding": "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+            "accept": "*/*"
+          },
+          "url": "https://postman-echo.com/get?Send+this+data+to+the+server."
+        }
+  recorded_at: Mon, 23 Sep 2024 02:18:24 GMT
+recorded_with: VCR 6.3.1

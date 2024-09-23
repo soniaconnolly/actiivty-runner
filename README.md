@@ -54,7 +54,6 @@ ActivityRunner.new(activity_file, logfile: './activity_runner_log.json')
 ### Run a bash shell under Linux in Docker
 ```
 docker-compose run --rm --service-ports app
-bundle install
 ```
 
 ## Discussion
@@ -66,12 +65,14 @@ Currently, no API keys are in use. If they are needed they should be added in a 
 ### Object Decomposition and Design Patterns
 - `ActivityRunner` reads in a json file of activities, creates `Activity` objects, and runs them.
 - `Activity` is the parent class for all types of activities. It can run a process because most activities use that capability. Inheritance and the Factory pattern are used to make this framework easily extensible.
-  - `CreateFileActivity`, `ModifyFileActivity`, `DeleteFileActivity`, and `NetworkFileActivity` are subclasses of `Activity`. They override the `command` method and possibly the `run` method.
+  - `CreateFileActivity`, `ModifyFileActivity`, `DeleteFileActivity`, and `NetworkActivity` are subclasses of `Activity`. They override the `command` method and possibly the `run` method.
   - `NullFileActivity` is used when the specified `action` property is invalid or 'path' is missing.
 - `ActivityFactory` creates the correct `Activity` subclass for the specified action.
 
 ### Gems
 - [json_logger](https://github.com/tedconf/json_logger) - logging in json format
+- [faraday](https://github.com/lostisland/faraday) - network requests
+- [vcr](https://github.com/vcr/vcr) - record network requests for specs
 - [sys-proctable](https://github.com/djberg96/sys-proctable) - cross-platform information about running processes
 - [get_process_start_time](https://github.com/sonots/get_process_start_time) - returns process start time (Linux only). I ended up using `ps` instead because it just works on both Mac and Linux, but it's slow. In a production system, the Linux side should use this gem, and the Mac side should figure out the start time from `ProcTable.ps(pid: process_id).start_tvsec` and `.start_tvusec`.
 
@@ -79,3 +80,13 @@ Currently, no API keys are in use. If they are needed they should be added in a 
 For a production system, more specs should be added to check error paths, such as invalid JSON files, missing properties, etc.
 
 Specs pass on both Mac and Linux.
+
+### NetworkActivity implementation
+At first I used `curl` in a new process to implement a network request. However, I did not have access to
+requested properties such as amount of data sent and source address and port. I reimplemented the network
+requests with faraday (which also allowed me to add the vcr gem to prevent network connections from specs).
+This puts the network request in the same process as the overall activity runner.
+
+Regarding source address and port, I looked at X-Forwarded-For, Origin, and Referer, but those are request
+headers, not response headers. Per this [StackOverflow answer](https://stackoverflow.com/questions/37509977/faraday-get-access-to-the-request-parameters) it would be possible to implement custom middleware to get
+access to the request to log those headers if they are present.
